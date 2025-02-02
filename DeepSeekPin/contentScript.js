@@ -2,6 +2,60 @@
     "use strict";
   
     // ============================
+    // Inject Custom CSS for Unified Styling
+    // ============================
+    function injectStyle() {
+      const style = document.createElement("style");
+      style.textContent = `
+        /* Container for the pinned messages */
+        .pinned-messages-section {
+          margin: 10px;
+          padding: 0;
+          border: 1px solid #4166D5;
+          border-radius: 4px;
+          background: #4166D5;
+        }
+        .pinned-messages-section .section-title {
+          font-weight: bold;
+          padding: 5px 10px;
+          background: #212327;
+          border-bottom: 1px solid #4166D5;
+        }
+        /* The list that holds the pinned items */
+        #pinned-chats {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+        /* Pinned chat items styling */
+        .pinned-messages-section .f9edaa3c,
+        .pinned-messages-section .pinned-clone {
+          margin: 0;
+          padding: 5px 10px;
+          border-bottom: 1px solid #4166D5;
+          background: #212327;
+        }
+        /* Remove extra margin/padding from inner elements if needed */
+        .pinned-messages-section .f9edaa3c * {
+          margin: 0;
+          padding: 0;
+        }
+        /* Dropdown menu options (for Pin/Unpin) */
+        .ds-dropdown-menu-option.pin-chat-option {
+          padding: 5px 10px;
+          display: flex;
+          align-items: center;
+        }
+        .ds-dropdown-menu-option.pin-chat-option svg {
+          margin-right: 5px;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  
+    injectStyle();
+  
+    // ============================
     // Unique ID Assignment
     // ============================
     let uniqueIdCounter = 0;
@@ -75,14 +129,16 @@
         existingPinOption.remove();
       }
   
-      // Create an "Unpin" button with an SVG icon.
+      // Create an "Unpin" button with an inline SVG icon.
       const unpinButton = document.createElement("div");
       unpinButton.className = "unpin-chat";
       unpinButton.style.cursor = "pointer";
       unpinButton.style.padding = "5px 10px";
       unpinButton.style.display = "none";
       unpinButton.innerHTML = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin-off"><path d="M12 17v5"/><path d="M15 9.34V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H7.89"/><path d="m2 2 20 20"/><path d="M9 9v1.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h11"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24">
+          <path d="M14 2l-4 4H5v12h14V6h-5l-4-4z" fill="currentColor"/>
+        </svg>
         <span style="margin-left:4px;">Unpin</span>
       `;
   
@@ -164,24 +220,29 @@
         const toggleOption = document.createElement("div");
         toggleOption.className = "ds-dropdown-menu-option pin-chat-option";
         toggleOption.style.cursor = "pointer";
+  
         // Use SVG icons for both states.
         if (isPinned) {
           toggleOption.innerHTML = `
             <div class="ds-dropdown-menu-option__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin-off"><path d="M12 17v5"/><path d="M15 9.34V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H7.89"/><path d="m2 2 20 20"/><path d="M9 9v1.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h11"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <path d="M14 2l-4 4H5v12h14V6h-5l-4-4z" fill="currentColor"/>
+              </svg>
             </div>
             <div class="ds-dropdown-menu-option__label">Unpin</div>
           `;
         } else {
           toggleOption.innerHTML = `
             <div class="ds-dropdown-menu-option__icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-7.5 4 2-7L2 9h7l3-7z" fill="currentColor"/>
+              </svg>
             </div>
             <div class="ds-dropdown-menu-option__label">Pin</div>
           `;
         }
   
-        // Insert the option between the --none and --error options.
+        // Insert the toggle option between the --none and --error options.
         const optionNone = dropdown.querySelector(".ds-dropdown-menu-option.ds-dropdown-menu-option--none");
         const optionError = dropdown.querySelector(".ds-dropdown-menu-option.ds-dropdown-menu-option--error");
         if (optionNone && optionError) {
@@ -216,7 +277,7 @@
           const pinnedSection = document.createElement("div");
           pinnedSection.className = "pinned-messages-section";
           pinnedSection.innerHTML = `
-            <div class="section-title">📌 Pinned Messages</div>
+            <div class="section-title">Pinned Messages</div>
             <ul id="pinned-chats"></ul>
           `;
           sidebar.parentNode.insertBefore(pinnedSection, chatListSection);
@@ -244,7 +305,7 @@
             const pinnedSection = document.createElement("div");
             pinnedSection.className = "pinned-messages-section";
             pinnedSection.innerHTML = `
-              <div class="section-title">📌 Pinned Messages</div>
+              <div class="section-title">Pinned Messages</div>
               <ul id="pinned-chats"></ul>
             `;
             sidebar.parentNode.insertBefore(pinnedSection, chatListSection);
