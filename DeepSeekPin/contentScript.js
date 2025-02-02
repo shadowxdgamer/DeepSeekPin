@@ -340,7 +340,7 @@ function watchSidebar() {
           const pinnedSection = document.createElement("div");
           pinnedSection.className = "pinned-messages-section";
           pinnedSection.innerHTML = `
-            <div class="section-title">Pinned Messages</div>
+            <div class="section-title">📌 Pinned Messages</div>
             <ul id="pinned-chats"></ul>
           `;
           sidebar.parentNode.insertBefore(pinnedSection, chatListSection);
