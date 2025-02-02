@@ -5,12 +5,12 @@
 If you find this repository useful, feel free to fork it and give it a star ⭐.
 
 <div align="center">
-  <img src="https://img.shields.io/github/issues/shadowxdgamer/Pin-Chats-Extension?style=for-the-badge&logo=appveyor" />
-  <img src="https://img.shields.io/github/forks/shadowxdgamer/Pin-Chats-Extension?style=for-the-badge&logo=appveyor" />
-  <img src="https://img.shields.io/github/stars/shadowxdgamer/Pin-Chats-Extension?style=for-the-badge&logo=appveyor" />
-  <img src="https://img.shields.io/github/license/shadowxdgamer/Pin-Chats-Extension?style=for-the-badge&logo=appveyor" />
+  <img src="https://img.shields.io/github/issues/shadowxdgamer/DeepSeekPin?style=for-the-badge&logo=appveyor" />
+  <img src="https://img.shields.io/github/forks/shadowxdgamer/DeepSeekPin?style=for-the-badge&logo=appveyor" />
+  <img src="https://img.shields.io/github/stars/shadowxdgamer/DeepSeekPin?style=for-the-badge&logo=appveyor" />
+  <img src="https://img.shields.io/github/license/shadowxdgamer/DeepSeekPin?style=for-the-badge&logo=appveyor" />
   <a>
-    <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Fshadowxdgamer%2FPin-Chats-Extension&countColor=%23263759" />
+    <img src="https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Fshadowxdgamer%2FDeepSeekPin&countColor=%23263759" />
   </a>
 </div>
 
