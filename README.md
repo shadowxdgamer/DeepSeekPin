@@ -55,7 +55,6 @@ _A quick demo of how the extension works._
 - **HTML5**
 - **CSS3**
 - **JavaScript**
-- **Chrome Extension API**
 
 ## Installation
 
