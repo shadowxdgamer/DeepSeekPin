@@ -189,9 +189,7 @@ function ensureChatId(chatItem) {
       unpinButton.style.padding = "5px 10px";
       unpinButton.style.display = "none";
       unpinButton.innerHTML = `
-        <svg width="16" height="16" viewBox="0 0 24 24">
-          <path d="M14 2l-4 4H5v12h14V6h-5l-4-4z" fill="currentColor"/>
-        </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin-off"><path d="M12 17v5"/><path d="M15 9.34V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H7.89"/><path d="m2 2 20 20"/><path d="M9 9v1.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h11"/></svg>
         <span style="margin-left:4px;">Unpin</span>
       `;
   
@@ -290,18 +288,14 @@ function restorePinnedChats() {
         if (isPinned) {
           toggleOption.innerHTML = `
             <div class="ds-dropdown-menu-option__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24">
-                <path d="M14 2l-4 4H5v12h14V6h-5l-4-4z" fill="currentColor"/>
-              </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin-off"><path d="M12 17v5"/><path d="M15 9.34V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H7.89"/><path d="m2 2 20 20"/><path d="M9 9v1.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h11"/></svg>
             </div>
             <div class="ds-dropdown-menu-option__label">Unpin</div>
           `;
         } else {
           toggleOption.innerHTML = `
             <div class="ds-dropdown-menu-option__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24">
-                <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-7.5 4 2-7L2 9h7l3-7z" fill="currentColor"/>
-              </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pin"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>
             </div>
             <div class="ds-dropdown-menu-option__label">Pin</div>
           `;
