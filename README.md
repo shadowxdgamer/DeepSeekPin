@@ -80,3 +80,6 @@ Navigate to Deepseek and start pinning your chats!
 ## 📄 License
 
 This project is licensed under the MIT License.
+
+
+Feel free to contribute, report issues, or suggest new features! Happy pinning! 📌
