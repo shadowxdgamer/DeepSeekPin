@@ -16,16 +16,11 @@ If you find this repository useful, feel free to fork it and give it a star ⭐.
 
 ## Table of Contents
 
-- [🚀 Demo](#demo)
 - [🖼️ Screenshots](#screenshots)
 - [📹 GIF Demo](#gif-demo)
 - [💻 Technologies](#technologies)
 - [⚙️ Installation](#installation)
 - [📜 License](#license)
-
-## Demo
-
-[View the live demo](#) _(Link to be added)_
 
 ## Screenshots
 
