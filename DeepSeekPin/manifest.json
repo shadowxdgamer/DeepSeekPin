@@ -11,8 +11,11 @@
         "js": ["contentScript.js"],
         "run_at": "document_idle"
       }
-    ]
+    ],
+    "action": {
+        "default_icon": "deepseek.png" 
   }
+}
   
   
   
