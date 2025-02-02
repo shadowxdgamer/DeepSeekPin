@@ -55,19 +55,35 @@
   
     injectStyle();
   
-    // ============================
-    // Unique ID Assignment
-    // ============================
-    let uniqueIdCounter = 0;
-    function ensureChatId(chatItem) {
-      let chatID = chatItem.getAttribute("data-id");
-      if (!chatID) {
-        uniqueIdCounter++;
-        chatID = "chat-" + uniqueIdCounter;
-        chatItem.setAttribute("data-id", chatID);
-      }
-      return chatID;
+// ============================
+// Unique ID Assignment (Updated)
+// ============================
+function ensureChatId(chatItem) {
+    // Check if the chat has a unique identifier (e.g., message ID in href)
+    const link = chatItem.querySelector('a[href*="/message/"]'); // Adjust selector as needed
+    let chatID = chatItem.getAttribute("data-id");
+    
+    if (!chatID && link) {
+      // Extract stable ID from href (example: "https://.../message/12345")
+      const href = link.getAttribute('href');
+      chatID = href.split('/').pop(); // Gets "12345"
+      chatItem.setAttribute("data-id", chatID);
     }
+    
+    // Fallback: Generate hash from text content
+    if (!chatID) {
+      const text = chatItem.textContent.trim();
+      let hash = 0;
+      for (let i = 0; i < text.length; i++) {
+        hash = (hash << 5) - hash + text.charCodeAt(i);
+        hash |= 0;
+      }
+      chatID = 'chat-' + hash;
+      chatItem.setAttribute("data-id", chatID);
+    }
+    
+    return chatID;
+  }
   
     // ============================
     // Local Storage Helpers
@@ -181,23 +197,35 @@
       console.log(`Chat ${chatID} unpinned successfully!`);
     }
   
-    // Restore pinned chats by scanning the main chat list for items
-    // whose IDs are saved in localStorage.
-    function restorePinnedChats() {
-      const pinnedIDs = loadPinnedChatIDs();
-      if (!pinnedIDs.length) return;
-      const pinnedList = document.getElementById("pinned-chats");
-      if (!pinnedList) return;
-      document.querySelectorAll(".f9edaa3c").forEach(chatItem => {
+// ============================
+// Restore Pinned Chats (Updated)
+// ============================
+function restorePinnedChats() {
+    const pinnedIDs = loadPinnedChatIDs();
+    if (!pinnedIDs.length) return;
+    const pinnedList = document.getElementById("pinned-chats");
+    if (!pinnedList) return;
+  
+    const attemptRestore = (attempt = 0) => {
+      const chatItems = document.querySelectorAll(".f9edaa3c:not(.pinned-clone)");
+      let restored = false;
+      
+      chatItems.forEach(chatItem => {
         const chatID = ensureChatId(chatItem);
-        if (pinnedIDs.includes(chatID)) {
-          if (!pinnedList.querySelector(`[data-id="${chatID}"].pinned-clone`)) {
-            pinChat(chatItem);
-            console.log(`Restored pinned chat: ${chatID}`);
-          }
+        if (pinnedIDs.includes(chatID) && !pinnedList.querySelector(`[data-id="${chatID}"]`)) {
+          pinChat(chatItem);
+          restored = true;
         }
       });
-    }
+  
+      // Retry up to 3 times if chats aren't loaded yet
+      if (!restored && attempt < 3) {
+        setTimeout(() => attemptRestore(attempt + 1), 500);
+      }
+    };
+  
+    attemptRestore();
+  }
   
     // ============================
     // Dropdown Menu Injection (Toggle)
@@ -268,12 +296,18 @@
     // ============================
     // Main Observer & UI Injection
     // ============================
-    function watchSidebar() {
-      const observer = new MutationObserver(() => {
-        // 1. Ensure the pinned messages section is present.
+// ============================
+// Updated Mutation Observer Logic
+// ============================
+function watchSidebar() {
+    const observer = new MutationObserver((mutations) => {
+      // Check if the chat list section exists (indicates sidebar is open)
+      const chatListSection = document.querySelector(".fb0a63fb"); // Update selector if needed
+      
+      // 1. Ensure pinned section exists when sidebar is open
+      if (chatListSection && !document.querySelector(".pinned-messages-section")) {
         const sidebar = document.querySelector(".ebaea5d2");
-        const chatListSection = document.querySelector(".fb0a63fb");
-        if (sidebar && chatListSection && !document.querySelector(".pinned-messages-section")) {
+        if (sidebar) {
           const pinnedSection = document.createElement("div");
           pinnedSection.className = "pinned-messages-section";
           pinnedSection.innerHTML = `
@@ -281,42 +315,24 @@
             <ul id="pinned-chats"></ul>
           `;
           sidebar.parentNode.insertBefore(pinnedSection, chatListSection);
-          console.log("Pinned Messages section added automatically!");
-          restorePinnedChats();
+          restorePinnedChats(); // Restore after section is added
         }
+      }
   
-        // 2. Attach dropdown listeners to original chat items.
-        document.querySelectorAll(".f9edaa3c").forEach(chatItem => {
-          if (chatItem.classList.contains("pinned-clone")) return;
-          if (!chatItem.getAttribute("data-pin-listener")) {
-            const menuButton = chatItem.querySelector(".ds-icon");
-            if (menuButton) {
-              menuButton.addEventListener("click", () => {
-                injectToggleOption(chatItem);
-              });
-            }
-            chatItem.setAttribute("data-pin-listener", "true");
+      // 2. Attach dropdown listeners to new chat items
+      document.querySelectorAll(".f9edaa3c:not(.pinned-clone)").forEach(chatItem => {
+        if (!chatItem.hasAttribute("data-pin-listener")) {
+          const menuButton = chatItem.querySelector(".ds-icon");
+          if (menuButton) {
+            menuButton.addEventListener("click", () => injectToggleOption(chatItem));
           }
-        });
-  
-        // 3. Detect sidebar collapse/expand (using a known element) and restore pinned chats.
-        if (document.querySelector("div.b8812f16.a2f3d50e")) {
-          if (!document.querySelector(".pinned-messages-section") && sidebar && chatListSection) {
-            const pinnedSection = document.createElement("div");
-            pinnedSection.className = "pinned-messages-section";
-            pinnedSection.innerHTML = `
-              <div class="section-title">Pinned Messages</div>
-              <ul id="pinned-chats"></ul>
-            `;
-            sidebar.parentNode.insertBefore(pinnedSection, chatListSection);
-            console.log("Re-added pinned messages section on sidebar reopen!");
-          }
-          restorePinnedChats();
+          chatItem.setAttribute("data-pin-listener", "true");
         }
       });
+    });
   
-      observer.observe(document.body, { childList: true, subtree: true });
-    }
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
   
     // ============================
     // Start Watching
