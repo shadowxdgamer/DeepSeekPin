@@ -296,9 +296,7 @@ function restorePinnedChats() {
     // ============================
     // Main Observer & UI Injection
     // ============================
-// ============================
-// Updated Mutation Observer Logic
-// ============================
+    
 function watchSidebar() {
     const observer = new MutationObserver((mutations) => {
       // Check if the chat list section exists (indicates sidebar is open)
