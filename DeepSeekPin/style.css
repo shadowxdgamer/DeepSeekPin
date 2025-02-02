@@ -1,0 +1,26 @@
+/* Pinned Messages Section */
+.pinned-messages-section {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Title Styling */
+.pinned-messages-section .section-title {
+  font-weight: bold;
+  font-size: 14px;
+  padding-bottom: 5px;
+}
+
+/* Chat list inside pinned section */
+#pinned-chats {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Add spacing for pinned chat items */
+#pinned-chats .chat-item {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+}
+  
