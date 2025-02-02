@@ -7,48 +7,85 @@
     function injectStyle() {
       const style = document.createElement("style");
       style.textContent = `
-        /* Container for the pinned messages */
-        .pinned-messages-section {
-          margin: 10px;
-          padding: 0;
-          border: 1px solid #4166D5;
-          border-radius: 4px;
-          background: #4166D5;
-        }
-        .pinned-messages-section .section-title {
-          font-weight: bold;
-          padding: 5px 10px;
-          background: #212327;
-          border-bottom: 1px solid #4166D5;
-        }
-        /* The list that holds the pinned items */
-        #pinned-chats {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-        }
-        /* Pinned chat items styling */
-        .pinned-messages-section .f9edaa3c,
-        .pinned-messages-section .pinned-clone {
-          margin: 0;
-          padding: 5px 10px;
-          border-bottom: 1px solid #4166D5;
-          background: #212327;
-        }
-        /* Remove extra margin/padding from inner elements if needed */
-        .pinned-messages-section .f9edaa3c * {
-          margin: 0;
-          padding: 0;
-        }
-        /* Dropdown menu options (for Pin/Unpin) */
-        .ds-dropdown-menu-option.pin-chat-option {
-          padding: 5px 10px;
-          display: flex;
-          align-items: center;
-        }
-        .ds-dropdown-menu-option.pin-chat-option svg {
-          margin-right: 5px;
-        }
+      /* Pinned messages container */
+      .pinned-messages-section {
+        margin: 10px;
+        border-radius: 12px;
+        background: var(--dsr-side-bg);
+        border: 1px solid var(--dsr-border);
+      }
+  
+      .pinned-messages-section .section-title {
+        font-weight: 500;
+        padding: 12px 16px;
+        color: var(--dsr-text-2);
+        border-bottom: 1px solid var(--dsr-border);
+      }
+  
+      #pinned-chats {
+        list-style: none;
+        margin: 0;
+        padding: 8px;
+      }
+  
+      /* Pinned items - use original class + clone class */
+      .pinned-messages-section .f9edaa3c.pinned-clone {
+        height: 38px;
+        margin: 2px 0;
+        border-radius: 12px;
+        background-color: var(--dsr-side-bg);
+        border: none !important;
+        box-shadow: none !important;
+      }
+  
+      /* Dark theme support */
+      [data-ds-dark-theme] .pinned-messages-section .f9edaa3c.pinned-clone {
+        background-color: var(--dsr-side-bg);
+      }
+  
+      /* Hover state */
+      .pinned-messages-section .f9edaa3c.pinned-clone:not(.b64fb9ae):hover {
+        background-color: var(--dsr-side-hover-bg) !important;
+      }
+  
+      /* Active state */
+      .pinned-messages-section .f9edaa3c.pinned-clone.b64fb9ae {
+        background-color: var(--dsr-local-active-bg) !important;
+      }
+  
+      /* Remove original position absolute and gradient overlays */
+      .pinned-messages-section .f9edaa3c.pinned-clone .f8773756,
+      .pinned-messages-section .f9edaa3c.pinned-clone .eaaaba55 {
+        display: none;
+      }
+  
+      /* Adjust padding for pinned items */
+      .pinned-messages-section .f9edaa3c.pinned-clone .c08e6e93 {
+        padding-right: 24px;
+      }
+  
+      /* Unpin button styling */
+      .pinned-messages-section .unpin-chat {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        align-items: center;
+        color: var(--dsr-text-2);
+        padding: 4px;
+        border-radius: 6px;
+        background: var(--dsr-side-bg);
+      }
+  
+      .pinned-messages-section .unpin-chat:hover {
+        background: var(--dsr-side-hover-bg);
+      }
+  
+      .pinned-messages-section .unpin-chat svg {
+        width: 16px;
+        height: 16px;
+      }
       `;
       document.head.appendChild(style);
     }
