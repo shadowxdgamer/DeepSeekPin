@@ -30,11 +30,13 @@ If you find this repository useful, feel free to fork it and give it a star ⭐.
 ## Screenshots
 
 ![📌 Pinned Chats](resources/Pin.png)
+
 _The extension in action, showing pinned chats for easy access._
 
 ## GIF Demo
 
 ![📌 Pin Chats Demo](resources/PinChats.gif)
+
 _A quick demo of how the extension works._
 
 ## Features
@@ -81,5 +83,5 @@ Navigate to Deepseek and start pinning your chats!
 
 This project is licensed under the MIT License.
 
-
+##
 Feel free to contribute, report issues, or suggest new features! Happy pinning! 📌
