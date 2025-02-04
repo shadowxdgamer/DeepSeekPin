@@ -1,6 +1,6 @@
 # Chrome Extension: Pin Chats in Deepseek
 
-📝 **Project Overview**: Have a lot of chats and don't want to keep looking for them? Pin them with this Chrome extension! This extension allows you to easily pin your important chats in Deepseek, making them easily accessible and saving you time. Built with simplicity and functionality in mind, this extension enhances your chat management experience.
+📝 **Project Overview**: Have a lot of chats/conversations and don't want to keep looking for them? Pin them with this Chrome extension! This extension allows you to easily pin your important chats in Deepseek, making them easily accessible and saving you time. Built with simplicity and functionality in mind, this extension enhances your chat management experience.
 
 If you find this repository useful, feel free to fork it and give it a star ⭐.
 
