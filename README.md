@@ -1,3 +1,5 @@
+## Note
+This script uses class names to detect changes, and deepseek just updated their class names so the script is now broken, i need to fix it or find a new way to detect class names which can take a while thank you for understanding
 # Chrome Extension: Pin Chats in Deepseek
 
 📝 **Project Overview**: Have a lot of chats/conversations and don't want to keep looking for them? Pin them with this Chrome extension! This extension allows you to easily pin your important chats in Deepseek, making them easily accessible and saving you time. Built with simplicity and functionality in mind, this extension enhances your chat management experience.
